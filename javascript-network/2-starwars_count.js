@@ -11,6 +11,9 @@ request(url, function (error, respose, body) {
     if (
       films[i].characters.includes(
         'https://swapi-api.alx-tools.com/api/people/18/'
+      ) ||
+      films[i].characters.includes(
+        'http://swapi-api.alx-tools.com/api/people/18/'
       )
     ) {
       count++;
