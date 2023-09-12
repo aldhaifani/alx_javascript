@@ -6,14 +6,14 @@ function welcomeMessage(fullName) {
   })();
 }
 
-guillaume = () => {
+let guillaume = () => {
   welcomeMessage('Guillaume');
 };
 
-alex = () => {
+let alex = () => {
   welcomeMessage('Alex');
 };
 
-fred = () => {
+let fred = () => {
   welcomeMessage('Fred');
 };
