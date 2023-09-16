@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Login to the website</h1>
+    <input type="text" id="firstname" placeholder="Firstname">
+    <input type="text" id="email" placeholder="Email">
+    <button id="logIn">Log me in</button>
+    <h1>Cookies</h1>
+    <button id="showCookie">Show the cookies</button>
+
+    <script>
+        function setCookies() {
+            let firstNameCookie = 'firstname=' + document.getElementById('firstname').value;
+            let emailCookie = 'email=' + document.getElementById('email').value;
+
+            const d = new Date();
+            d.setTime(d.getTime() + (10*24*60*60*1000));
+            let exp = 'expires=' + d.toUTCString();
+            document.cookie = firstNameCookie;
+            document.cookie = emailCookie;
+            document.cookie = exp;
+        }
+
+        function showCookies() {
+            let ca = decodeURIComponent(document.cookie).split(';');
+            let name = "";
+            let email = "";
+            for (let i = 0; i < ca.length; i++) {
+                let temp = ca[i].trim().split('=');
+                if (temp[0] === 'firstname') {
+                    name = temp[1];
+                }
+                if (temp[0] === 'email') {
+                    email = temp[1];
+                }
+            }
+
+            const para = document.createElement('p');
+            para.innerText = 'Email: ' + email + ' - Firstname: ' + name;
+            document.body.appendChild(para);
+        }
+
+        function getCookie(name) {
+            let ca = decodeURIComponent(document.cookie).split(';');
+            for (let i = 0; i < ca.length; i++) {
+                let temp = ca[i].trim().split('=');
+                if (temp[0] === name) {
+                    return temp[1];
+                }
+            }
+            return "";
+        }
+
+        document.getElementById('logIn').addEventListener('click', setCookies);
+        document.getElementById('showCookie').addEventListener('click', showCookies);
+    </script>
+</body>
+</html>
