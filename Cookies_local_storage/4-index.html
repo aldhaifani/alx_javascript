@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <h2>Login to the website</h2>
+        <input type="text" id="firstname" placeholder="Firstname">
+        <input type="text" id="email" placeholder="Email">
+        <button id="logIn">Log me in</button>
+    </div>
+
+
+    <script>
+        const form = document.getElementsByTagName('div')[0];
+
+        function setCookies() {
+            Cookies.set('firstname', document.getElementById('firstname').value, {expires : 10});
+            Cookies.set('email', document.getElementById('firstname').value)
+        }
+
+        function showCookies() {
+            let name = getCookie('firstname');
+            let email = getCookie('email');
+
+            const para = document.createElement('p');
+            para.innerText = 'Email: ' + email + ' - Firstname: ' + name;
+            document.body.appendChild(para);
+        }
+
+        function getCookie(name) {
+           return Cookies.get(name);
+        }
+
+        function showForm() {
+            const welcomeMsg = document.getElementsByTagName('h1')[0];
+            if (welcomeMsg !== null) {
+                welcomeMsg.remove();
+            }
+            form.style.display = 'block';
+        }
+
+        function hideForm() {
+            form.style.display = 'none';
+        }
+
+        function deleteCookiesAndShowForm() {
+            Cookies.remove('firstname');
+            Cookies.remove('email');
+            showForm();
+        }
+
+        function showWelcomeMessageOrForm() {
+            if (document.cookie === null) {
+                showForm();
+            } else {
+                hideForm();
+                let name = getCookie('firstname');
+                const welcome = document.createElement('h1');
+                welcome.innerHTML = 'Welcome: ' + name + ' <i><a href=\'#\' style=\'color:black;text-decoration:none;\'>(logout)<\a><\i>';
+                document.body.appendChild(welcome);
+                welcome.addEventListener('click', deleteCookiesAndShowForm);
+            }
+        }
+
+        function setCookiesAndShowWelcomeMessage() {
+            setCookies()
+            showWelcomeMessageOrForm();
+        }
+        
+        document.getElementById('logIn').addEventListener('click', setCookiesAndShowWelcomeMessage);
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
+</body>
+</html>
